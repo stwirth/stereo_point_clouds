@@ -1,0 +1,17 @@
+<package>
+  <description brief="stereo_point_clouds">
+
+     stereo_point_clouds
+
+  </description>
+  <author>Stephan Wirth</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/stereo_point_clouds</url>
+
+  <depend package="rospy" />
+  <depend package="camera_calibration" />
+
+</package>
+
+

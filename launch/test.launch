@@ -1,0 +1,16 @@
+<launch>
+
+  <arg name="image_dir" />
+  <arg name="left_image_pattern" default="*_l.JPG" />
+  <arg name="right_image_pattern" default="*_r.JPG" />
+
+  <node name="stereo_publisher" pkg="stereo_point_clouds" type="stereo_image_sequence_publisher.py" output="screen" >
+    <param name="frequency" value="0.1" /> <!-- slow for calibration -->
+    <param name="image_dir" value="$(arg image_dir)" />
+    <param name="left_camera_info_file" value="" />
+    <param name="right_camera_info_file" value="" />
+    <param name="left_image_pattern" value="$(arg left_image_pattern)" />
+    <param name="right_image_pattern" value="$(arg right_image_pattern)" />
+  </node>
+
+</launch>
