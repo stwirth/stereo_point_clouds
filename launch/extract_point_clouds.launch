@@ -1,0 +1,27 @@
+<launch>
+
+  <arg name="image_dir" />
+  <arg name="left_calibration_file" default="$(arg image_dir)/calibration_left.yaml" />
+  <arg name="right_calibration_file" default="$(arg image_dir)/calibration_right.yaml" />
+  <arg name="left_image_pattern" default="*_l.JPG" />
+  <arg name="right_image_pattern" default="*_r.JPG" />
+
+  <node name="stereo_publisher" pkg="stereo_point_clouds" type="stereo_image_sequence_publisher.py" output="screen" >
+    <param name="frequency" value="0.1" /> <!-- slow for stereo image processing -->
+    <param name="image_dir" value="$(arg image_dir)" />
+    <param name="left_camera_info_file" value="$(arg left_calibration_file)" />
+    <param name="right_camera_info_file" value="$(arg right_calibration_file)" />
+    <param name="left_image_pattern" value="$(arg left_image_pattern)" />
+    <param name="right_image_pattern" value="$(arg right_image_pattern)" />
+  </node>
+
+  <node name="stereo_proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="/camera">
+  </node>
+
+  <node name="point_cloud_writer" pkg="pcl_ros" type="point_cloud_to_pcd">
+    <remap from="input" to="/camera/points2" />
+    <param name="prefix" value="$(arg image_dir)" />
+  </node>
+
+</launch>
+

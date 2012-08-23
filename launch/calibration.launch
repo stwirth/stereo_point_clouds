@@ -5,7 +5,12 @@
   <arg name="right_image_pattern" default="*_r.JPG" />
 
   <node name="calibrator" pkg="camera_calibration" type="cameracalibrator.py"
-    args="--size 8x6 --square 0.024 right:=/camera/right/image left:=/camera/left/image right_camera:=/camera/right left_camera:=/camera/left --no-service-check" output="screen" />
+    args="--size 8x6 --square 0.024" output="screen">
+    <remap from="right" to="/camera/right/image" />
+    <remap from="left" to="/camera/left/image" />
+    <remap from="right_camera" to="/camera/right" />
+    <remap from="left_camera" to="/camera/left" />
+  </node>
 
   <node name="stereo_publisher" pkg="stereo_point_clouds" type="stereo_image_sequence_publisher.py" output="screen" >
     <param name="frequency" value="0.1" /> <!-- slow for calibration -->
